@@ -16,7 +16,7 @@ public class TestController {
     public ResponseEntity<String> hello(HttpServletRequest request) {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
-                .body("테스트입니다efd.");
+                .body("테스트입니다efdf.");
     }
 
     @PostMapping("/ip")
