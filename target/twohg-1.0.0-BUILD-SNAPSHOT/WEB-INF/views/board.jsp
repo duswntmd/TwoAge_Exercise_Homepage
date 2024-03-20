@@ -9,8 +9,38 @@
 <head>
     <meta charset="UTF-8">
     <title>sungkyul</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
+<%--    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+    <meta name="author" content="FreeHTML5.co" />
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="../css/owl.carousel.css">
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../css/animate.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="../css/style.css">
+
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         * {
@@ -20,14 +50,15 @@
             font-family: "Noto Sans KR", sans-serif;
         }
 
-        .container {
-            width : 50%;
-            margin : auto;
-        }
+        /*.container {*/
+        /*    width : 50%;*/
+        /*    margin : auto;*/
+        /*}*/
 
         .writing-header {
             position: relative;
-            margin: 20px 0 0 0;
+            /*margin: 20px 0 0 0;*/
+            margin: -700px 0 0 0;
             padding-bottom: 10px;
             border-bottom: 1px solid #323232;
         }
@@ -40,6 +71,7 @@
             padding: 8px;
             background: #f8f8f8;
             outline-color: #e6e6e6;
+
         }
 
         textarea {
@@ -71,16 +103,63 @@
     </style>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li id="logo">sungkyul</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
-    </ul>
-</div>
+<div id="page-wrap">
+
+
+    <!-- ==========================================================================================================
+                                                       HERO
+         ========================================================================================================== -->
+
+    <div id="fh5co-hero-wrapper">
+        <nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
+            <a class="navbar-brand" href="<c:url value='/'/>">HP</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-items-center ml-auto ">
+                    <li class="nav-item active">
+                        <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
+                        <a class="nav-link"  href="<c:url value='/'/>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
+                        <a class="nav-link"  href="<c:url value='/board/list'/>">Board</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
+                        <a class="nav-link" href="<c:url value='${loginOutLink}'/>">${loginOut}</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
+                        <a class="nav-link" href="<c:url value='/register/add'/>">Sign in</a>
+                    </li>
+                </ul>
+                <div class="social-icons-header">
+                    <a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </nav>
+
+
+
+    </div> <!-- first section wrapper -->
+</div> <!-- main page wrapper -->
+
+<%--<div id="menu">--%>
+<%--    <ul>--%>
+<%--        <li id="logo">sungkyul</li>--%>
+<%--        <li><a href="<c:url value='/'/>">Home</a></li>--%>
+<%--        <li><a href="<c:url value='/board/list'/>">Board</a></li>--%>
+<%--        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>--%>
+<%--        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>--%>
+<%--        <li><a href=""><i class="fa fa-search"></i></a></li>--%>
+<%--    </ul>--%>
+<%--</div>--%>
+
 <script>
     let msg = "${msg}";
     if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");

@@ -1,7 +1,10 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<%@ page session="false"%>
+<c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
+<c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <%@ page import="java.net.URLDecoder"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +13,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
+    <title>sungkyul</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+    <meta name="author" content="FreeHTML5.co" />
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="../css/owl.carousel.css">
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../css/animate.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="../css/style.css">
+
     <style>
         * { box-sizing:border-box; }
         form {
@@ -19,11 +53,12 @@
             flex-direction: column;
             align-items:center;
             position : absolute;
-            top:50%;
+            top:55%;
             left:50%;
             transform: translate(-50%, -50%) ;
             border: 1px solid rgb(89,117,196);
             border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
         }
         .input-field {
             width: 300px;
@@ -68,6 +103,53 @@
     <title>Register</title>
 </head>
 <body>
+
+<div id="page-wrap">
+
+
+    <!-- ==========================================================================================================
+                                                       HERO
+         ========================================================================================================== -->
+
+    <div id="fh5co-hero-wrapper">
+        <nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
+            <a class="navbar-brand" href="<c:url value='/'/>">HP</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-items-center ml-auto ">
+                    <li class="nav-item active">
+                        <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
+                        <a class="nav-link"  href="<c:url value='/'/>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
+                        <a class="nav-link"  href="<c:url value='/board/list'/>">Board</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
+                        <a class="nav-link" href="<c:url value='${loginOutLink}'/>">${loginOut}</a>
+                    </li>
+                    <li class="nav-item">
+                        <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
+                        <a class="nav-link" href="<c:url value='/register/add'/>">Sign in</a>
+                    </li>
+                </ul>
+                <div class="social-icons-header">
+                    <a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </nav>
+
+
+
+    </div> <!-- first section wrapper -->
+</div> <!-- main page wrapper -->
+
 <!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->
 <form:form modelAttribute="user">
     <div class="title">Register</div>
@@ -82,11 +164,11 @@
     <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr">
     <label for="">생일</label>
     <input class="input-field" type="text" name="birth" placeholder="2020-12-31">
-    <div class="sns-chk">
-        <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>
-        <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>
-        <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>
-    </div>
+<%--    <div class="sns-chk">--%>
+<%--        <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>--%>
+<%--        <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>--%>
+<%--        <label><input type="checkbox" name="sns" value="instagram"/>인스타그램</label>--%>
+<%--    </div>--%>
     <button>회원 가입</button>
 </form:form>
 <script>
