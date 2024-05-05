@@ -4,32 +4,16 @@
 <%@ page session="false"%>
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? '로그인' : 'ID='+=loginId}"/>
 <%@ page import="java.net.URLDecoder"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>sungkyul</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
-    <title>sungkyul</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="FreeHTML5.co" />
-
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
 
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="../css/bootstrap.css">
@@ -99,6 +83,27 @@
         .sns-chk {
             margin-top : 5px;
         }
+
+        .nav ul li ul {
+
+            display: none;
+            position: absolute;
+            width: 250px;
+        }
+        .navbar-nav {
+            position: relative; /* 부모 요소에 relative를 설정합니다. */
+        }
+
+        .navbar-nav .submenu {
+            position: absolute;
+            /*top: 100%; !* 부모 요소의 아래쪽에 위치하도록 설정합니다. *!*/
+            /*left: 0;*/
+            display: none; /* 초기에는 보이지 않도록 설정합니다. */
+        }
+
+        .navbar-nav .nav-item:hover .submenu  {
+            display: block; /* 부모 요소에 호버될 때 하위 메뉴가 나타나도록 설정합니다. */
+        }
     </style>
     <title>Register</title>
 </head>
@@ -122,11 +127,11 @@
                 <ul class="navbar-nav nav-items-center ml-auto ">
                     <li class="nav-item active">
                         <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">Home</a>
+                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
-                        <a class="nav-link"  href="<c:url value='/board/list'/>">Board</a>
+                        <a class="nav-link"  href="<c:url value='/board/list'/>">자유게시판</a>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
@@ -134,7 +139,11 @@
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
-                        <a class="nav-link" href="<c:url value='/register/add'/>">Sign in</a>
+                        <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
+                                <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                            </ul>
                     </li>
                 </ul>
                 <div class="social-icons-header">
@@ -150,20 +159,25 @@
     </div> <!-- first section wrapper -->
 </div> <!-- main page wrapper -->
 
-<!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->
+<%--<!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->--%>
+<form action="/twohg" method="post">
 <form:form modelAttribute="user">
     <div class="title">Register</div>
     <div id="msg" class="msg"><form:errors path="id"/></div>
+    <div pwd="msg" class="msg"><form:errors path="pwd"/></div>
+    <span style="color:red;">${message}</span>
     <label for="">아이디</label>
-    <input class="input-field" type="text" name="id" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="text" name="id" placeholder="4~10자리의 영대소문자와 숫자 조합">
     <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="pwd" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="text" name="pwd" placeholder="4~10자리의 영대소문자와 숫자 조합">
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" placeholder="홍길동">
     <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr">
-    <label for="">생일</label>
-    <input class="input-field" type="text" name="birth" placeholder="2020-12-31">
+    <input class="input-field" type="text" name="email" placeholder="example@gmail.co.kr">
+    <label for="">생일</label> <!-- text -->
+    <input class="input-field" type="date" name="birth" placeholder="2020-12-31">
+
+
 <%--    <div class="sns-chk">--%>
 <%--        <label><input type="checkbox" name="sns" value="facebook"/>페이스북</label>--%>
 <%--        <label><input type="checkbox" name="sns" value="kakaotalk"/>카카오톡</label>--%>
@@ -171,6 +185,7 @@
 <%--    </div>--%>
     <button>회원 가입</button>
 </form:form>
+</form>
 <script>
     function formCheck(frm) {
         var msg ='';

@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? '로그인' : 'ID='+=loginId}"/>
 <!DOCTYPE html>
 <!--
 App by FreeHTML5.co
@@ -15,21 +15,21 @@ URL: http://freehtml5.co
 <head>
     <meta charset="UTF-8">
     <title>sungkyul</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="FreeHTML5.co" />
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />--%>
+<%--    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />--%>
+<%--    <meta name="author" content="FreeHTML5.co" />--%>
 
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
+<%--    <!-- Facebook and Twitter integration -->--%>
+<%--    <meta property="og:title" content=""/>--%>
+<%--    <meta property="og:image" content=""/>--%>
+<%--    <meta property="og:url" content=""/>--%>
+<%--    <meta property="og:site_name" content=""/>--%>
+<%--    <meta property="og:description" content=""/>--%>
+<%--    <meta name="twitter:title" content="" />--%>
+<%--    <meta name="twitter:image" content="" />--%>
+<%--    <meta name="twitter:url" content="" />--%>
+<%--    <meta name="twitter:card" content="" />--%>
 
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -43,6 +43,29 @@ URL: http://freehtml5.co
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+    .nav ul li ul {
+
+    display: none;
+    position: absolute;
+    width: 250px;
+    }
+    .navbar-nav {
+        position: relative; /* 부모 요소에 relative를 설정합니다. */
+    }
+
+    .navbar-nav .submenu {
+        position: absolute;
+        /*top: 100%; !* 부모 요소의 아래쪽에 위치하도록 설정합니다. *!*/
+        /*left: 0;*/
+        display: none; /* 초기에는 보이지 않도록 설정합니다. */
+    }
+
+    .navbar-nav .nav-item:hover .submenu  {
+        display: block; /* 부모 요소에 호버될 때 하위 메뉴가 나타나도록 설정합니다. */
+    }
+    </style>
 </head>
 <body>
 
@@ -56,6 +79,7 @@ URL: http://freehtml5.co
 
     <div id="fh5co-hero-wrapper">
         <nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
+<%--            <a class="navbar-brand" href="<c:url value='/'/>">HP</a>--%>
             <a class="navbar-brand" href="<c:url value='/'/>">HP</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -65,20 +89,31 @@ URL: http://freehtml5.co
 <%--                <ul class="navbar-nav nav-items-center ml-auto mr-auto">--%>
                 <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
-                        <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">Home</a>
+                        <a class="nav-link " href="#" onclick="$('#fh5co-features').goTo();return false;">테스트<i class='fa '></i></a>
+                        <ul class="submenu navbar-nav"  >
+                            <li><a class="nav-link " href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a></li>
+                            <li><a class="nav-link " href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
-                        <a class="nav-link"  href="<c:url value='/board/list'/>">Board</a>
+                        <a class="nav-link"  href="<c:url value='/board/list'/>">자유게시판<i class='fa '></i></a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a></li>
+                                <li><a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a></li>
+                            </ul>
                     </li>
                     <li class="nav-item">
-                        <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
+<%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
                         <a class="nav-link" href="<c:url value='${loginOutLink}'/>">${loginOut}</a>
                     </li>
                     <li class="nav-item">
-                        <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
-                        <a class="nav-link" href="<c:url value='/register/add'/>">Sign in</a>
+<%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
+                        <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
+                                 <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                            </ul>
                     </li>
                 </ul>
                 <div class="social-icons-header">
@@ -314,6 +349,9 @@ URL: http://freehtml5.co
 
 
 </div> <!-- main page wrapper -->
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>

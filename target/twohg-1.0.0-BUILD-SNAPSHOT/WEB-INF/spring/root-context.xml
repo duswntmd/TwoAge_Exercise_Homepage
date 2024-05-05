@@ -14,8 +14,8 @@
 		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property>
 		<!--property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property-->
-		<property name="username" value="duswntmd"></property>
-		<property name="password" value="0000"></property>
+		<property name="username" value="duswntmd"></property> <!--git에 올릴시 DB아이디로 변경해서 올리기-->
+		<property name="password" value="0000"></property>     <!--git에 올릴시 DB비밀번호로 변경해서 올리기-->
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -23,6 +23,25 @@
 		<property name="configLocation"  value="classpath:mybatis-config.xml"/>
 		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
 	</bean>
+
+	<!-- 이메일 발송 bean 설정 -->
+	<bean id="mailSender"
+		  class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
+		<property name="port" value="587" />
+		<property name="username" value="20211392am@gmail.com" />  <!--git에 올릴시 아이디로 변경해서 올리기-->
+		<property name="password" value="sijkpyuduqfsubgj" />      <!--git에 올릴시 비밀번호로 변경해서 올리기-->
+<!--		<property name="password" value="artbook519!" />-->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"/>

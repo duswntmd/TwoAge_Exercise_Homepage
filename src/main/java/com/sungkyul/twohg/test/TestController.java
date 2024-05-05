@@ -1,4 +1,4 @@
-package com.sungkyul.twohg;
+package com.sungkyul.twohg.test;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -3,7 +3,7 @@
 <%@ page session="false"%>
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? '로그인' : 'ID='+=loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,21 +12,6 @@
     <%--    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="FreeHTML5.co" />
-
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
 
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="../css/bootstrap.css">
@@ -88,6 +73,26 @@
             color:red;
             margin-bottom: 20px;
         }
+        .nav ul li ul {
+
+            display: none;
+            position: absolute;
+            width: 250px;
+        }
+        .navbar-nav {
+            position: relative; /* 부모 요소에 relative를 설정합니다. */
+        }
+
+        .navbar-nav .submenu {
+            position: absolute;
+            /*top: 100%; !* 부모 요소의 아래쪽에 위치하도록 설정합니다. *!*/
+            /*left: 0;*/
+            display: none; /* 초기에는 보이지 않도록 설정합니다. */
+        }
+
+        .navbar-nav .nav-item:hover .submenu  {
+            display: block; /* 부모 요소에 호버될 때 하위 메뉴가 나타나도록 설정합니다. */
+        }
     </style>
 </head>
 <body>
@@ -110,11 +115,11 @@
                 <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
                         <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">Home</a>
+                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
-                        <a class="nav-link"  href="<c:url value='/board/list'/>">Board</a>
+                        <a class="nav-link"  href="<c:url value='/board/list'/>">자유게시판</a>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-reviews').goTo();return false;">Reviews</a>--%>
@@ -122,7 +127,11 @@
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
-                        <a class="nav-link" href="<c:url value='/register/add'/>">Sign in</a>
+                        <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
+                                <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                            </ul>
                     </li>
                 </ul>
                 <div class="social-icons-header">
@@ -155,14 +164,14 @@
             <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
         </c:if>
     </div>
-    <input type="text" name="id" value="${cookie.id.value}" placeholder="이메일 입력" autofocus>
+    <input type="text" name="id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
     <input type="password" name="pwd" placeholder="비밀번호">
     <input type="hidden" name="toURL" value="${param.toURL}">
     <button>로그인</button>
     <div>
         <label><input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}> 아이디 기억</label> |
-        <a href="">비밀번호 찾기</a> |
-        <a href="">회원가입</a>
+        <a href="/twohg/passid/findid">아이디 찾기</a> |
+        <a href="/twohg/passpwd/findPassword">비밀번호 찾기</a>
     </div>
     <script>
         function formCheck(frm) {

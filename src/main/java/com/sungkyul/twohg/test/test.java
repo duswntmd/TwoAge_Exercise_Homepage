@@ -1,4 +1,4 @@
-package com.sungkyul.twohg;
+package com.sungkyul.twohg.test;
 
 
 import org.springframework.http.MediaType;

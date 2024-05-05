@@ -1,6 +1,5 @@
 package com.sungkyul.twohg.dao;
 
-import com.sungkyul.twohg.domain.*;
 import com.sungkyul.twohg.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.Date;
 
 @Repository
@@ -17,15 +17,17 @@ public class UserDaoImpl implements UserDao {
     DataSource ds;
 
     @Override
-    public int deleteUser(String id) throws Exception {
+    public int deleteUser(String id, String name, String pwd) throws Exception {
         int rowCnt = 0;
-        String sql = "DELETE FROM user_info WHERE id= ? ";
+        String sql = "DELETE FROM user_info WHERE id= ? AND name = ? AND pwd = ?";
 
         try (  // try-with-resources - since jdk7
                Connection conn = ds.getConnection();
                PreparedStatement pstmt = conn.prepareStatement(sql);
         ){
             pstmt.setString(1, id);
+            pstmt.setString(2, name);
+            pstmt.setString(3, pwd);
             return pstmt.executeUpdate(); //  insert, delete, update
 //      } catch (Exception e) {
 //          e.printStackTrace();
@@ -54,7 +56,7 @@ public class UserDaoImpl implements UserDao {
                 user.setEmail(rs.getString(4));
                 user.setBirth(new Date(rs.getDate(5).getTime()));
                 user.setSns(rs.getString(6));
-                user.setReg_date(new Date(rs.getTimestamp(7).getTime()));
+//                user.setReg_date(new Date(rs.getTimestamp(7).getTime()));
             }
         }
 
@@ -76,7 +78,8 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(2, user.getPwd());
             pstmt.setString(3, user.getName());
             pstmt.setString(4, user.getEmail());
-            pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));
+            pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));  //text사용할떄
+//            pstmt.setTimestamp(5, new java.sql.Timestamp(user.getBirth().getTime()));
             pstmt.setString(6, user.getSns());
 
             return pstmt.executeUpdate();
@@ -89,7 +92,7 @@ public class UserDaoImpl implements UserDao {
 
         String sql = "UPDATE user_info " +
                 "SET pwd = ?, name=?, email=?, birth =?, sns=?, reg_date=? " +
-                "WHERE id = ? ";
+                "WHERE id = ?";
 
         try (
                 Connection conn = ds.getConnection();
@@ -98,15 +101,53 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(1, user.getPwd());
             pstmt.setString(2, user.getName());
             pstmt.setString(3, user.getEmail());
-            pstmt.setDate(4, new java.sql.Date(user.getBirth().getTime()));
+            if (user.getBirth() != null) {
+                pstmt.setDate(4, new java.sql.Date(user.getBirth().getTime()));
+            } else {
+                pstmt.setNull(4, Types.DATE); // 생년월일이 null이면 데이터베이스에 null로 저장
+            }
             pstmt.setString(5, user.getSns());
-            pstmt.setTimestamp(6, new java.sql.Timestamp(user.getReg_date().getTime()));
+            if (user.getReg_date() != null) {
+                pstmt.setTimestamp(6, new java.sql.Timestamp(user.getReg_date().getTime())); // Use setTimestamp for reg_date
+            } else {
+                pstmt.setNull(6, Types.TIMESTAMP); // 등록일이 null이면 데이터베이스에 null로 저장
+            }
             pstmt.setString(7, user.getId());
 
             rowCnt = pstmt.executeUpdate();
         }
 
         return rowCnt;
+    }
+
+
+    @Override
+    public User getUserById(String id, String name, String pwd) throws Exception {
+        User user = null;
+        String sql = "SELECT * FROM user_info WHERE id= ? AND name = ? AND pwd = ?";
+
+        try (
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            pstmt.setString(1, id);
+            pstmt.setString(2, name);
+            pstmt.setString(3, pwd);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+
+                    user = new User();
+                    user.setId(rs.getString("id"));
+                    user.setPwd(rs.getString("pwd"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setBirth(rs.getDate("birth"));
+                    user.setReg_date(rs.getTimestamp("reg_date"));
+                }
+            }
+        }
+        return user;
     }
 
     @Override
@@ -134,4 +175,58 @@ public class UserDaoImpl implements UserDao {
             pstmt.executeUpdate();
         }
     }
+    // 중복체크
+    @Override
+    public boolean isIdDuplicate(String id) throws Exception {
+        String sql = "SELECT COUNT(*) FROM user_info WHERE id = ?";
+        try (
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ){
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            return count > 0;
+        }
+    }
+
+    // 아이디찾기
+    @Override
+    public String findIdByEmailAndName(String email, String name) throws Exception {
+        String sql = "SELECT id FROM user_info WHERE email = ? AND name = ?";
+        try (
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ){
+            pstmt.setString(1, email);
+            pstmt.setString(2, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("id"); // 해당 이메일과 이름에 대한 아이디 반환
+            } else {
+                return null; // 해당하는 사용자가 없을 경우 null 반환
+            }
+        }
+    }
+
+    // 비밀번호찾기
+    @Override
+    public String findPasswordByEmailAndId(String email, String id) throws Exception {
+        String sql = "SELECT pwd FROM user_info WHERE email = ? AND id = ?";
+        try (
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ){
+            pstmt.setString(1, email);
+            pstmt.setString(2, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("pwd"); // 해당 이메일과 아이디에 대한 비밀번호 반환
+            } else {
+                return null; // 해당하는 사용자가 없을 경우 null 반환
+            }
+        }
+    }
+
 }
