@@ -7,13 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
+@RequestMapping("/updateid")
 public class UpdateUserController {
 
     private final UserDao userDao;
@@ -58,6 +61,7 @@ public class UpdateUserController {
                              @RequestParam("email") String email,
                              @RequestParam("birth") String birth,
                              @RequestParam(value = "sns", required = false) String sns,
+                             RedirectAttributes rattr,
                              Model model) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,8 +78,8 @@ public class UpdateUserController {
             int rowsAffected = userDao.updateUser(user);
 
             if (rowsAffected > 0) {
-                model.addAttribute("message", "사용자 정보가 성공적으로 업데이트되었습니다.");
-                return "index";
+                rattr.addFlashAttribute("msg", "WRT_OK");
+                return "redirect:/updateid/updateuser";
             } else {
                 model.addAttribute("error", "사용자 정보 업데이트에 실패했습니다.");
             }

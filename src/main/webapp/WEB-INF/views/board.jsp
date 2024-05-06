@@ -140,8 +140,8 @@
                         <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
                         <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
                             <ul class="submenu navbar-nav"  >
-                                <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
-                                <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                                <li><a class="nav-link" href="<c:url value='/updateid/confirmuser'/>">회원수정</a></li>
+                                <li><a class="nav-link" href="<c:url value='/deleteid/deleteuser'/>">회원삭제</a></li>
                             </ul>
                     </li>
                 </ul>

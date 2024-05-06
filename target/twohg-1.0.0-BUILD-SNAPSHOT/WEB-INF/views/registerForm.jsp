@@ -141,8 +141,8 @@
                         <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
                         <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
                             <ul class="submenu navbar-nav"  >
-                                <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
-                                <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                                <li><a class="nav-link" href="<c:url value='/updateid/confirmuser'/>">회원수정</a></li>
+                                <li><a class="nav-link" href="<c:url value='/deleteid/deleteuser'/>">회원삭제</a></li>
                             </ul>
                     </li>
                 </ul>
@@ -160,7 +160,8 @@
 </div> <!-- main page wrapper -->
 
 <%--<!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->--%>
-<form action="/twohg" method="post">
+<!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->
+<%--<form action="/twohg" method="post">--%>
 <form:form modelAttribute="user">
     <div class="title">Register</div>
     <div id="msg" class="msg"><form:errors path="id"/></div>
@@ -185,8 +186,14 @@
 <%--    </div>--%>
     <button>회원 가입</button>
 </form:form>
-</form>
+<%--</form>--%>
 <script>
+    let msg = "${msg}";
+    // 만약 msg 값이 "WRT_OK"라면 성공적으로 회원가입되었다는 알림창을 띄움
+    if(msg === "WRT_OK") {
+        alert("성공적으로 회원가입 되었습니다.");
+    }
+
     function formCheck(frm) {
         var msg ='';
         if(frm.id.value.length<3) {
@@ -201,6 +208,9 @@
             element.select();
         }
     }
+
+
+
 </script>
 </body>
 </html>

@@ -54,8 +54,8 @@ public class UserDaoImpl implements UserDao {
                 user.setPwd(rs.getString(2));
                 user.setName(rs.getString(3));
                 user.setEmail(rs.getString(4));
-                user.setBirth(new Date(rs.getDate(5).getTime()));
-                user.setSns(rs.getString(6));
+//                user.setBirth(new Date(rs.getDate(5).getTime()));
+                user.setSns(rs.getString(5));
 //                user.setReg_date(new Date(rs.getTimestamp(7).getTime()));
             }
         }
@@ -78,8 +78,8 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(2, user.getPwd());
             pstmt.setString(3, user.getName());
             pstmt.setString(4, user.getEmail());
-            pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));  //text사용할떄
-//            pstmt.setTimestamp(5, new java.sql.Timestamp(user.getBirth().getTime()));
+//            pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));  //text사용할떄
+            pstmt.setTimestamp(5, new java.sql.Timestamp(user.getBirth().getTime()));
             pstmt.setString(6, user.getSns());
 
             return pstmt.executeUpdate();

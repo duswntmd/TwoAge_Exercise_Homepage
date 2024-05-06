@@ -39,12 +39,12 @@
         h2 {
             text-align: center;
             color: #333;
-            margin-top: 200px; /* 제목을 조금 아래로 이동 */
+            margin-top: -650px; /* 제목을 조금 아래로 이동 */
         }
 
         form {
             width: 400px;
-            margin: 30px auto; /* 폼을 조금 아래로 이동 */
+            margin: 20px auto; /* 폼을 조금 아래로 이동 */
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -144,8 +144,8 @@
                         <%--                        <a class="nav-link" href="#"  onclick="$('#fh5co-download').goTo();return false;">Download</a>--%>
                         <a class="nav-link" href="<c:url value='/register/add'/>">회원가입</a>
                         <ul class="submenu navbar-nav"  >
-                            <li><a class="nav-link" href="<c:url value='/confirmuser'/>">회원수정</a></li>
-                            <li><a class="nav-link" href="<c:url value='/deleteuser'/>">회원삭제</a></li>
+                            <li><a class="nav-link" href="<c:url value='/updateid/confirmuser'/>">회원수정</a></li>
+                            <li><a class="nav-link" href="<c:url value='/deleteid/deleteuser'/>">회원삭제</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -163,7 +163,16 @@
 </div> <!-- main page wrapper -->
 
 <h2>사용자 삭제</h2>
-<form action="/twohg/deleteuser" method="post">
+<form action="/twohg/deleteid/deleteuser" method="post">
+    <%-- 에러 메시지 출력 --%>
+    <% if (request.getAttribute("error") != null) { %>
+    <p style="color: red;"><%= request.getAttribute("error") %></p>
+    <% } %>
+
+    <%-- 성공 메시지 출력 --%>
+    <% if (request.getAttribute("message") != null) { %>
+    <p style="color: green;"><%= request.getAttribute("message") %></p>
+    <% } %>
     <label for="id">아이디:</label>
     <input type="text" id="id" name="id" required>
     <br>
@@ -176,25 +185,12 @@
     <button type="submit">사용자 삭제</button>
 </form>
 
-<%-- 에러 메시지 출력 --%>
-<% if (request.getAttribute("error") != null) { %>
-<p style="color: red;"><%= request.getAttribute("error") %></p>
-<% } %>
 
-<%-- 성공 메시지 출력 --%>
-<% if (request.getAttribute("message") != null) { %>
-<p style="color: green;"><%= request.getAttribute("message") %></p>
-<% } %>
 
 <script>
     let msg = "${msg}";
-    if(msg=="LIST_ERR")  alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
-    if(msg=="READ_ERR")  alert("삭제되었거나 없는 게시물입니다.");
-    if(msg=="DEL_ERR")   alert("삭제되었거나 없는 게시물입니다.");
+    if(msg=="DEL_OK")    alert("회원탈퇴가 성공적으로 삭제되었습니다.");
 
-    if(msg=="DEL_OK")    alert("성공적으로 삭제되었습니다.");
-    if(msg=="WRT_OK")    alert("성공적으로 등록되었습니다.");
-    if(msg=="MOD_OK")    alert("성공적으로 수정되었습니다.");
 </script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/deleteid")
 public class DeleteUserController {
 
     private final UserDao userDao;
@@ -36,12 +37,12 @@ public class DeleteUserController {
             if (rowsAffected > 0) {
 //                return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
                 model.addAttribute("message", "회원탈퇴가 성공했습니다.");
-                return "index";
+                rattr.addFlashAttribute("msg", "DEL_OK");
+                return "redirect:/deleteid/deleteuser";
             } else {
 //                return new ResponseEntity<>("User not found or credentials do not match", HttpStatus.NOT_FOUND);
                 model.addAttribute("error", "회원탈퇴가 실패했습니다.");
-                rattr.addFlashAttribute("msg", "DEL_ERR");
-                return "redirect:/deleteuser";
+                return "deleteUser";
             }
         } catch (Exception e) {
 //            return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

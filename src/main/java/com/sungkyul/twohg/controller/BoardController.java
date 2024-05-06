@@ -24,7 +24,7 @@ public class BoardController {
 
     @PostMapping("/modify")
     public String modify(BoardDto boardDto, Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
-
+//
         String writer = (String)session.getAttribute("id");
         boardDto.setWriter(writer);
 

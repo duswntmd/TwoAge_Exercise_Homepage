@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller // ctrl+shift+o 자동 import
 @RequestMapping("/register")
@@ -38,7 +39,7 @@ public class RegisterController {
     }
 
     @PostMapping("/add")
-    public String save(@Valid User user, BindingResult result, Model m) throws Exception {
+    public String save(@Valid User user, BindingResult result, RedirectAttributes rattr, Model m) throws Exception {
         System.out.println("result="+result);
         System.out.println("user="+user);
 
@@ -53,7 +54,8 @@ public class RegisterController {
             int rowCnt = userDao.insertUser(user);
 
             if(rowCnt!=FAIL) {
-                return "index";
+                rattr.addFlashAttribute("msg", "WRT_OK");
+                return "redirect:/register/add";
             }
         }
 
