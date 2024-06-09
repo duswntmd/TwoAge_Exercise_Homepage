@@ -36,15 +36,11 @@
             padding: 0;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: -650px; /* 제목을 조금 아래로 이동 */
-        }
+
 
         form {
             width: 400px;
-            margin: 20px auto; /* 폼을 조금 아래로 이동 */
+            margin:-600px auto; /* 폼을 조금 아래로 이동 */
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -130,7 +126,11 @@
                 <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
                         <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
+                            <a class="nav-link" href="/twohg/#fh5co-slider">운동모델</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link " href="/twohg/#fh5co-advantages">추천영상</a></li>
+                                <li><a class="nav-link " href="/twohg/#fh5co-features">간단소개</a></li>
+                            </ul>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
@@ -162,8 +162,9 @@
     </div> <!-- first section wrapper -->
 </div> <!-- main page wrapper -->
 
-<h2>사용자 삭제</h2>
+
 <form action="/twohg/deleteid/deleteuser" method="post">
+    <h2>사용자 삭제</h2>
     <%-- 에러 메시지 출력 --%>
     <% if (request.getAttribute("error") != null) { %>
     <p style="color: red;"><%= request.getAttribute("error") %></p>

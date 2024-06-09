@@ -37,15 +37,11 @@
             padding: 0;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: -650px;
-        }
+
 
         form {
             width: 400px;
-            margin: 20px auto;
+            margin: -600px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -125,7 +121,11 @@
                 <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
                         <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
+                            <a class="nav-link" href="/twohg/#fh5co-slider">운동모델</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link " href="/twohg/#fh5co-advantages">추천영상</a></li>
+                                <li><a class="nav-link " href="/twohg/#fh5co-features">간단소개</a></li>
+                            </ul>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
@@ -156,8 +156,9 @@
 </div> <!-- main page wrapper -->
 
 <body>
-<h2>사용자 정보 수정</h2>
+
 <form action="${pageContext.request.contextPath}/updateid/updateuser" method="post">
+    <h2>사용자 정보 수정</h2>
     <c:if test="${not empty message}">
         <p style="color: green;">${message}</p>
     </c:if>

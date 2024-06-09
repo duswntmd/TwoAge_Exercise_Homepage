@@ -31,7 +31,6 @@
 		<property name="port" value="587" />
 		<property name="username" value="20211392am@gmail.com" />  <!--git에 올릴시 아이디로 변경해서 올리기-->
 		<property name="password" value="sijkpyuduqfsubgj" />      <!--git에 올릴시 비밀번호로 변경해서 올리기-->
-<!--		<property name="password" value="artbook519!" />-->
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>

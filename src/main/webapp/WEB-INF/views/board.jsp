@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <title>sungkyul</title>
 <%--    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="../css/bootstrap.css">
@@ -42,7 +42,7 @@
         .writing-header {
             position: relative;
             /*margin: 20px 0 0 0;*/
-            margin: -700px 0 0 0;
+            margin: -670px 0 0 0;
             padding-bottom: 10px;
             border-bottom: 1px solid #323232;
         }
@@ -123,10 +123,13 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-items-center ml-auto ">
+                <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
-                        <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
+                        <a class="nav-link" href="/twohg/#fh5co-slider">운동모델</a>
+                        <ul class="submenu navbar-nav"  >
+                            <li><a class="nav-link " href="/twohg/#fh5co-advantages">추천영상</a></li>
+                            <li><a class="nav-link " href="/twohg/#fh5co-features">간단소개</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
@@ -194,6 +197,7 @@
         </c:if>
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>
+    <jsp:include page="test.jsp" />
 </div>
 <script>
     $(document).ready(function(){ //main()

@@ -36,15 +36,11 @@
             padding: 0;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: -650px;
-        }
+
 
         form {
             width: 400px;
-            margin: 20px auto;
+            margin: -600px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
@@ -125,7 +121,11 @@
                 <ul class="navbar-nav nav-items-center ml-auto">
                     <li class="nav-item active">
                         <%--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
-                        <a class="nav-link"  href="<c:url value='/'/>">테스트</a>
+                            <a class="nav-link" href="/twohg/#fh5co-slider">운동모델</a>
+                            <ul class="submenu navbar-nav"  >
+                                <li><a class="nav-link " href="/twohg/#fh5co-advantages">추천영상</a></li>
+                                <li><a class="nav-link " href="/twohg/#fh5co-features">간단소개</a></li>
+                            </ul>
                     </li>
                     <li class="nav-item">
                         <%--                        <a class="nav-link" href="#" onclick="$('#fh5co-features').goTo();return false;">Features</a>--%>
@@ -155,8 +155,18 @@
     </div> <!-- first section wrapper -->
 </div> <!-- main page wrapper -->
 
-<h2>비밀번호 찾기</h2>
+
 <form action="/twohg/passpwd/findPassword" method="post">
+    <h2>비밀번호 찾기</h2>
+    <%-- 에러 메시지 출력 --%>
+    <% if (request.getAttribute("error") != null) { %>
+    <p style="color: red;"><%= request.getAttribute("error") %></p>
+    <% } %>
+
+    <%-- 성공 메시지 출력 --%>
+    <% if (request.getAttribute("message") != null) { %>
+    <p style="color: green;"><%= request.getAttribute("message") %></p>
+    <% } %>
     <label for="id">아이디:</label>
     <input type="text" id="id" name="id" required>
     <br>
@@ -166,14 +176,6 @@
     <button type="submit">비밀번호 찾기</button>
 </form>
 
-<%-- 에러 메시지 출력 --%>
-<% if (request.getAttribute("error") != null) { %>
-<p style="color: red;"><%= request.getAttribute("error") %></p>
-<% } %>
 
-<%-- 성공 메시지 출력 --%>
-<% if (request.getAttribute("message") != null) { %>
-<p style="color: green;"><%= request.getAttribute("message") %></p>
-<% } %>
 </body>
 </html>
